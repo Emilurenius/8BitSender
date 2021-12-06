@@ -1,0 +1,27 @@
+{
+  "name": "8bitsender",
+  "version": "1.0.0",
+  "description": "A server that lets you control 8 of the digital pins on a Pi, so you can create an 8 bit interface",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emilurenius/8BitSender.git"
+  },
+  "author": "Emil Christiansen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emilurenius/8BitSender/issues"
+  },
+  "homepage": "https://github.com/Emilurenius/8BitSender#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "onoff": "^6.0.3",
+    "path": "^0.12.7"
+  }
+}
