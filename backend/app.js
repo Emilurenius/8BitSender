@@ -7,6 +7,17 @@ const fs = require("fs")
 const cors = require("cors")
 const gpio = require('onoff').Gpio
 
+// const pins = {
+//     b0: new gpio(2, 'out'),
+//     b1: new gpio(3, 'out'),
+//     b2: new gpio(4, 'out'),
+//     b3: new gpio(17, 'out'),
+//     b4: new gpio(27, 'out'),
+//     b5: new gpio(22, 'out'),
+//     b6: new gpio(10, 'out'),
+//     b7: new gpio(9, 'out')
+// }
+
 
 // Reading input from terminal start
 const port = parseInt(process.argv[2] || 3000)
@@ -29,9 +40,9 @@ app.get('/', (req, res) => {
 
 app.post("/setpins", async (req, res) => {
     const bits = { b0, b1, b2, b3, b4, b5, b6, b7 } = req.body
-    console.log(bits)
-    for (let i = 0; i < Object.keys(bits).length; i++) {
-        console.log(bits[Object.keys(bits)[i]])
+    for ([k, v] of Object.entries(bits)) {
+        console.log(`${k}: ${v}`)
+        bits[k].writeSync(v)
     }
     res.send(bits)
 })
