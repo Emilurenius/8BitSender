@@ -42,7 +42,7 @@ app.post("/setpins", async (req, res) => {
     const bits = { b0, b1, b2, b3, b4, b5, b6, b7 } = req.body
     for ([k, v] of Object.entries(bits)) {
         console.log(`${k}: ${v}`)
-        console.log(pins[k])
+        pins[k].writeSync(v)
     }
     res.send(bits)
 })
