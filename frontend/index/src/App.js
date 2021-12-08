@@ -5,8 +5,8 @@ import './App.css';
 
 function url(path) {
   const origin = new URL(document.location).origin
-  //return `${origin}${path}`
-  return `http://raspi4:3000${path}`
+  return `${origin}${path}`
+  //return `http://raspi4:3000${path}`
 }
 
 function Button(props) { // Simple button template
@@ -37,7 +37,7 @@ class App extends React.Component {
 
     const text = document.getElementById('dType').value // Get text value of dice type input
     const binaryData = parseInt(text).toString(2) // Turn dice number into binary
-    const eightBit = `0${new Array(7 - binaryData.length).fill('0').join('')}${binaryData}` // Convert to 8 bit, and add analog/digital mode bit.
+    const eightBit = `${new Array(7 - binaryData.length).fill('0').join('')}${binaryData}0` // Convert to 8 bit, and add analog/digital mode bit.
     console.log(eightBit)
 
     let bitData = {}
