@@ -5,8 +5,8 @@ import './App.css';
 
 function url(path) {
   const origin = new URL(document.location).origin
-  return `${origin}${path}`
-  //return `http://raspi4:3000${path}`
+  //return `${origin}${path}`
+  return `http://raspi4:3000${path}`
 }
 
 function Button(props) { // Simple button template
@@ -35,15 +35,21 @@ class App extends React.Component {
   handleSend = (e) => {
     console.log('Sending bits')
 
-    const text = document.getElementById('dType').value
-    console.log(text)
-    const binaryData = parseInt(text).toString(2)
-    console.log(binaryData)
+    const text = document.getElementById('dType').value // Get text value of dice type input
+    const binaryData = parseInt(text).toString(2) // Turn dice number into binary
+    const eightBit = `0${new Array(7 - binaryData.length).fill('0').join('')}${binaryData}` // Convert to 8 bit, and add analog/digital mode bit.
+    console.log(eightBit)
+
+    let bitData = {}
+    for (let i=0; i<eightBit.length; i++) {
+      bitData[`b${i}`] = eightBit.charAt(i)
+    }
+    console.log(bitData)
 
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({b1:1})
+      body: JSON.stringify(bitData)
     }
     fetch(url('/setpins'), requestOptions)
   }

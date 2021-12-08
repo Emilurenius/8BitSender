@@ -44,6 +44,7 @@ app.post("/setpins", async (req, res) => {
         console.log(`${k}: ${v}`)
         pins[k].writeSync(v)
     }
+    console.log('\n----------------\n')
     res.send(bits)
 })
 
