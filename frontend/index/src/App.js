@@ -5,8 +5,8 @@ import './App.css';
 
 function url(path) {
   const origin = new URL(document.location).origin
-  //return `${origin}${path}`
-  return `http://localhost:3000${path}`
+  return `${origin}${path}`
+  //return `http://raspi4:3000${path}`
 }
 
 function Button(props) { // Simple button template
@@ -17,66 +17,10 @@ function Button(props) { // Simple button template
   )
 }
 
-class Bits extends React.Component {
-
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <div>
-      <Button
-        value={'Bit 0'}
-        id={'b0'}
-        class={this.props.standardClass}
-        onClick={this.props.onClick}
-      />
-       <Button
-        value={'Bit 1'}
-        id={'b1'}
-        class={this.props.standardClass}
-        onClick={this.props.onClick}
-      />
-       <Button
-        value={'Bit 2'}
-        id={'b2'}
-        class={this.props.standardClass}
-        onClick={this.props.onClick}
-      />
-       <Button
-        value={'Bit 3'}
-        id={'b3'}
-        class={this.props.standardClass}
-        onClick={this.props.onClick}
-      />
-       <Button
-        value={'Bit 4'}
-        id={'b4'}
-        class={this.props.standardClass}
-        onClick={this.props.onClick}
-      />
-       <Button
-        value={'Bit 5'}
-        id={'b5'}
-        class={this.props.standardClass}
-        onClick={this.props.onClick}
-      />
-       <Button
-        value={'Bit 6'}
-        id={'b6'}
-        class={this.props.standardClass}
-        onClick={this.props.onClick}
-      />
-       <Button
-        value={'Bit 7'}
-        id={'b7'}
-        class={this.props.standardClass}
-        onClick={this.props.onClick}
-      />
-    </div>
-    )
-  }
+function NumInput(props) { // Simple input template
+  return (
+    <input type="number" className={props.class} id={props.id} placeholder={props.placeholder}/>
+  )
 }
 
 class App extends React.Component {
@@ -90,23 +34,16 @@ class App extends React.Component {
 
   handleSend = (e) => {
     console.log('Sending bits')
-    const exampleBits = {
-      b0: false,
-      b1: false,
-      b2: true,
-      b3: true,
-      b4: false,
-      b5: true,
-      b6: false,
-      b7: true
-    }
 
-    console.log(this.state.bits)
+    const text = document.getElementById('dType').value
+    console.log(text)
+    const binaryData = parseInt(text).toString(2)
+    console.log(binaryData)
 
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(exampleBits)
+      body: JSON.stringify({b1:1})
     }
     fetch(url('/setpins'), requestOptions)
   }
@@ -128,10 +65,16 @@ class App extends React.Component {
     return (
       <div className='main' id='main'>
         
-        <Bits
-          onClick={this.handleBitChange}
-          standardClass='checkUnchecked'
-        />
+        <div>
+          <p>
+            I want to roll a D
+            <NumInput 
+              class='textIn'
+              id='dType'
+              placeholder='20'
+            />
+          </p>
+        </div>
 
         <Button 
           value='Send data'
